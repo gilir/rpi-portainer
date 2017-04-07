@@ -4,11 +4,12 @@ services:
   portainer:
     image: portainer/portainer
     container_name: portainer
+    restart: always
     ports:
       - "9000:9000"
     volumes:
-      - "./data:/data"
-      - "/var/run/docker.sock:/var/run/docker.sock"
+      - portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - proxy-network
     labels:
@@ -19,3 +20,6 @@ networks:
     external:
       name: proxy-network
 
+volumes:
+  portainer_data:
+    external: true
